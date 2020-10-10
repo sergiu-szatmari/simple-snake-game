@@ -14,6 +14,33 @@ body {
     height: 100vh;
 }
 
+#game-container {
+    position: relative;
+}
+
+h6.how-to {
+    font-size: 2rem !important;
+    letter-spacing: 1rem;
+    position: absolute;
+    top: 2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+    transition: hide .4s ease-in-out;
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 canvas#gc {
     border:5px solid #1086e8;
     border-radius:1.25rem;

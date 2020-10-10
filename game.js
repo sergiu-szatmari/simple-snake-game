@@ -19,6 +19,13 @@ window.onload = () => {
     context = canvas.getContext('2d');
     document.addEventListener('keydown', onKeyPressed);
     setInterval(game, 1000/15);
+    setTimeout(clearInstructions, 5000);
+}
+
+const clearInstructions = () => {
+    const elem = $('.how-to');
+    elem.classList.add('hidden');
+    setTimeout(() => { elem.remove(); }, 1000);
 }
 
 const isInvalid = (keyCode) => {
