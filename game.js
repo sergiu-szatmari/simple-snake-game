@@ -3,7 +3,7 @@ const $ = (selector) => { return document.querySelector(selector); };
 const Keys = { LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40 }, 
     player = { x: 10, y: 10 }, 
     trail = [],
-    velocity = { x: 0, y: 0, set: (newX, newY) => { velocity.x = newX; velocity.y = newY; } },
+    direction = { x: 0, y: 0, set: (newX, newY) => { direction.x = newX; direction.y = newY; } },
     apple = { x: 15, y: 15, spawn: () => { apple.x = apple.y = Math.floor(Math.random() * tileCount); } }, 
     highscore = { score: 0, player: null, get: () => { const hs = getHighscore(); if (hs) { highscore.score = hs.score; highscore.player = hs.player; } } };
 
@@ -76,18 +76,10 @@ const onKeyPressed = (event) => {
 
     lastKey = keyCode;
     switch (keyCode) {
-        case Keys.LEFT:
-            velocity.set(-1, 0);
-            break;
-        case Keys.UP:
-            velocity.set(0, -1);
-            break;
-        case Keys.RIGHT:
-            velocity.set(1, 0);
-            break;
-        case Keys.DOWN:
-            velocity.set(0, 1);
-            break;
+        case Keys.LEFT: direction.set(-1, 0); break;
+        case Keys.UP: direction.set(0, -1); break;
+        case Keys.RIGHT: direction.set(1, 0); break;
+        case Keys.DOWN: direction.set(0, 1); break;
     }
 }
 
@@ -101,8 +93,8 @@ const setScore = (scoreNr) => {
 const nonUnique = a => new Set(a).size !== a.length;
                 
 const game = () => {
-    player.x += velocity.x;
-    player.y += velocity.y;
+    player.x += direction.x;
+    player.y += direction.y;
     if (player.x < 0) { player.x = tileCount - 1; }
     if (player.x > tileCount - 1) { player.x = 0; }
     if (player.y < 0) { player.y = tileCount - 1; }
@@ -116,12 +108,13 @@ const game = () => {
         context.fillRect(trail[i].x * gridSize, trail[i].y * gridSize, gridSize - 2, gridSize - 2);
         if (trail[i].x == player.x && trail[i].y == player.y) {
             if (!nonUnique(trail) && trail.length > 2 && (score > highscore.score)) {
-                console.log({ trail });
                 const name = prompt('New high score! Enter your name');
                 setHighscore(score, name);
                 location.reload();
             }
             setScore(0);
+            trail.length = 0;
+            direction.set(0, 0);
         }
     }
 
