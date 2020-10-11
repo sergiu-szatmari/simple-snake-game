@@ -18,6 +18,19 @@ body {
     position: relative;
 }
 
+h2 {
+    font-size: 1.4rem;
+    margin: .2rem auto;
+}
+
+#reset {
+    font-size: 1rem;
+    letter-spacing: 0;
+    align-self: center;
+    cursor: pointer;
+    user-select: none;
+}
+
 h6.how-to {
     font-size: 2rem !important;
     letter-spacing: 1rem;
@@ -30,6 +43,10 @@ h6.how-to {
 .hidden {
     display: none;
     transition: hide .4s ease-in-out;
+}
+
+.invisible {
+    visibility: hidden;
 }
 
 @keyframes hide {
